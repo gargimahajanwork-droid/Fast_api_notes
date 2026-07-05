@@ -12,8 +12,10 @@ from fastapi import Depends, HTTPException
 from auth import hash_password, verify_password , create_access_token, verify_token
 
 app = FastAPI()
+print(Base.metadata.tables.keys())
 
-Base.metadata.create_all(bind = engine)
+Base.metadata.drop_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 @app.post("/register")
 def register_user(user : UserCreate , db: Session = Depends(get_db)):
